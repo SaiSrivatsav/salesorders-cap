@@ -6,6 +6,10 @@
     {
       "name": "uaa.user",
       "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.admin",
+      "description": "Admin Role"
     }
   ],
   "role-templates": [
@@ -15,6 +19,11 @@
       "scope-references": [
         "uaa.user"
       ]
+    },
+    {
+      "name": "SO_ADMIN",
+      "description": "SalesOrders - Admin Role",
+      "scope-references": ["$XSAPPNAME.admin"]
     }
   ]
 }

@@ -10,7 +10,7 @@ modules:
   - name: salesorderapp-db
   - name: salesorderapp-auth
   provides:
-  - name: srv-api
+  - name: salesorderapp-srv-api
     properties:
       srv-url: ${default-url}
   parameters:
@@ -52,7 +52,7 @@ modules:
           Name: sales_approuter_salesorderapp_auth
           ServiceInstanceName: salesorderapp-auth
           ServiceKeyName: salesorderapp-auth-key
-          sap.cloud.service: sales-approuter
+          sap.cloud.service: sales-approuter 
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true
@@ -96,7 +96,7 @@ resources:
     service: xsuaa
     service-plan: application
 - name: salesorderapp-destination-service
-  type: org.cloudfoundry.managed-service
+  type: org.cloudfoundry.managed-service  
   parameters:
     config:
       HTML5Runtime_enabled: true
@@ -104,15 +104,25 @@ resources:
         instance:
           destinations:
           - Authentication: NoAuthentication
+            URL: ~{salesorderapp-srv-api/srv-url}
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: orders_service
+            ProxyType: Internet
+            Type: HTTP
+            sap.cloud.service: sales-approuter
+          - Authentication: NoAuthentication
             Name: ui5
             ProxyType: Internet
             Type: HTTP
-            URL: https://ui5.sap.com
+            URL: https://ui5.sap.com            
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
     service-name: salesorderapp-destination-service
     service-plan: lite
+  requires:
+    - name: salesorderapp-srv-api
 - name: salesorderapp_html_repo_host
   type: org.cloudfoundry.managed-service
   parameters:

@@ -3,6 +3,12 @@
   "authenticationMethod": "route",
   "routes": [
     {
+      "source": "^/orders/(.*)$",
+      "destination": "orders_service",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+    {
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",
@@ -19,6 +25,6 @@
       "target": "$1",
       "service": "html5-apps-repo-rt",
       "authenticationType": "xsuaa"
-    }
+    }    
   ]
 }

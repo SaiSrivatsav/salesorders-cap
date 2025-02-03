@@ -4,6 +4,7 @@ using { cuid, managed } from '@sap/cds/common';
 entity headerData: cuid, managed{
     key documentNumber: String(10);
         orderType: String(3);
+        salesOrganization: String(4);
         soldToParty: String(10);
         shipToParty: String(10);
         salesGroup: String(3);
