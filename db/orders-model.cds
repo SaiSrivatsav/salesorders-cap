@@ -11,7 +11,7 @@ entity headerData: cuid, managed{
         salesOffice: String(4);
         netAmount: Decimal(13,2);
         currency: String(4);
-        items: Association to many itemData on items.documentNumber = $self.documentNumber;
+        items: Composition of many itemData on items.documentNumber = $self.documentNumber;
 }
 
 entity itemData: cuid, managed{
